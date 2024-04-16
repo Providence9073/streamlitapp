@@ -1,5 +1,6 @@
 import pickle as pk
 import streamlit as st
+import joblib as jb
 
 def let_to_num (a,b):
     if a == "Yes" and b == "Yes":
@@ -23,6 +24,7 @@ def num_to_let (x):
     return x
 
 m = pk.load(open("diabettes_model.pkl","rb"))
+j = jb.load("finalized_model.sav")
 
 st.title("Diabettes Prediction System")
 st.header("Diabettes Prediction System")
@@ -37,7 +39,7 @@ glu = st.text_input("input the value for blood_glucose_level")
 
 if st.button("predict"):
    hyp_v, hd_v = let_to_num(hyp, hd)
-   pre =  m.predict([[age,hyp_v,hd_v,bmi,hb,glu]])
+   pre =  j.predict([[age,hyp_v,hd_v,bmi,hb,glu]])
    st.text_input("prediction result",num_to_let(pre))
 #st.number_input()
 
